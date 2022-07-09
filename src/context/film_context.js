@@ -1,6 +1,7 @@
 
 import React, { useContext, useEffect, useReducer } from 'react';
 import reducer from './Film_reducer';
+import fetchElement from '../tools/fetchElement'
 
 
 const initLocalStorage = () => {
@@ -37,17 +38,47 @@ export const FilmProvider = ({ children }) => {
 
 	const addItem = (movieInput, provider, place) => {
 		dispatch({ type: "GET_MOVIE_BEGIN" });
-
+		fetchElement(movieInput, provider)
+			.then(newItem => {
+				if (isPresent(newItem)) {
+					dispatch({ type: "GET_MOVIE_END" });
+					return setAlert(
+						true,
+						'The movie is already in your list!',
+						'warning',
+						place
+					);
+				}
+				dispatch({ type: "ADD_MOVIE", payload: newItem });
+				setAlert(
+					true,
+					'Movie successfully added to the list!',
+					'success',
+					place
+				);
+				dispatch({ type: "GET_MOVIE_END" });
+			})
+			.catch(error => {
+				setAlert(true, "I'm sorry, adding the movie failed!", 'danger', place);
+				dispatch({ type: "GET_MOVIE_END" });
+			});
 	};
 
 
+	const setAlert = (
+		show = false,
+		msg = '',
+		type = state.alert.type,
+		place = "HEADER"
+	) => {
+		dispatch({ type: "SET_ALERT", payload: { show, msg, type, place } });
+	};
 
 
-
-	const removeMovie = id => {
+	const removeFilm = id => {
 		dispatch({ type: "REMOVE_MOVIE", payload: id });
 	};
-	const clearMovies = () => dispatch({ type: "CLEAR_ALL" });
+	const clearfilms = () => dispatch({ type: "CLEAR_ALL" });
 	const toggleFavourites = id => dispatch({ type: "TOGGLE_FAV", payload: id });
 
 	return (
@@ -55,9 +86,9 @@ export const FilmProvider = ({ children }) => {
 			value={{
 				...state,
 				addItem,
-				removeMovie,
+				removeFilm,
 				toggleFavourites,
-				clearMovies,
+				clearfilms,
 
 			}}>
 			{children}

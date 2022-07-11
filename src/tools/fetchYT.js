@@ -1,5 +1,4 @@
 const extractIdYT = movieInput => {
-	// we assume that id has always 11 characters and no other params are included in url
 	return movieInput.substring(movieInput.length - 11, movieInput.length);
 };
 

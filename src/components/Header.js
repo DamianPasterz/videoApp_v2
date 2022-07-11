@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'
 import '../styles/Header.css';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
@@ -32,11 +32,13 @@ function Header() {
     return (
         <div className='header'>
             <div className='header__left' >
-                <MenuSharpIcon />
-                <Link to="/">
+                <Router>
 
-                </Link>
 
+                    <Link to="/">
+                        <MenuSharpIcon />
+                    </Link>
+                </Router>
             </div>
 
             <div className='header__input' onSubmit={handleSubmit}>
@@ -47,11 +49,13 @@ function Header() {
                     name='url'
                     id='url'
                     type="text" />
-
-                <Link to={`/search/${inputSearch}`}>
-                    <SearchSharpIcon className='header__innputButton' />
-                </Link>
+                <Router>
+                    <Link to={`/search/${inputSearch}`}>
+                        <SearchSharpIcon className='header__innputButton' />
+                    </Link>
+                </Router>
             </div>
+
             <div className='header__icons'>
                 <VideoCallSharpIcon className='header__icon' />
                 <AppsSharpIcon className='header__icon' />
@@ -61,7 +65,7 @@ function Header() {
 
             </div>
 
-        </div>
+        </div >
     )
 }
 

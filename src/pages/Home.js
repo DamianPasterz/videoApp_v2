@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom/client';
 import "../styles/Home.css"
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from "../components/Sidebar"
 import RecomendetVideo from "../components/RecomendetVideo"
@@ -10,13 +10,19 @@ import RecomendetVideo from "../components/RecomendetVideo"
 const Home = () => {
 	return (
 		<div className='app'>
-			<Header></Header>
-			<div className='app__page'>
-				<Sidebar />
-				<RecomendetVideo />
-			</div>
+			<Router>
+				<Header />
+				<Routes>
+					<Route path='/'></Route>
+					<div className='app__page'>
+						<Sidebar />
+						<RecomendetVideo />
+					</div>
+					/Route>
+				</Routes>
+			</Router>
 		</div>
 	)
-};
+}; C
 
 export default Home;

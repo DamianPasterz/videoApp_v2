@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom/client';
+import "../styles/Home.css"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from "../components/Sidebar"
-import SearchPage from "../components/SearchPage"
+import RecomendetVideo from "../components/RecomendetVideo"
+// import { style } from '@mui/system';
 
 const Home = () => {
 	return (
-		<>
-			<Header></Header>;
-			<Sidebar></Sidebar>
-			<SearchPage></SearchPage>
-		</>
+		<div className='app'>
+			<Header></Header>
+			<div className='app__page'>
+				<Sidebar />
+				<RecomendetVideo />
+			</div>
+		</div>
 	)
 };
 

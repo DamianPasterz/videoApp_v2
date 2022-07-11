@@ -43,7 +43,7 @@ function Header() {
                 <input
                     onChange={e => setInputSearch(e.target.value)}
                     value={inputSearch}
-                    placeholder='Search'
+                    placeholder='Place for a link or ID'
                     name='url'
                     id='url'
                     type="text" />

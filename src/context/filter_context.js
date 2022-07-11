@@ -3,19 +3,19 @@ import React, { useEffect, useContext, useReducer } from 'react';
 
 
 import reducer from './filter_reducer';
-import { useMoviesContext } from './movies_context';
+import { useFilmContext } from './film_context';
 
 // ------ STATE ------
 const initialState = {
 	all_movies: [], // movies to render
 	filtered_movies: [],
 	pages: [],
-	view: TILES_VIEW, // filters & sorts
-	sort: NAME_AZ,
+	view: "TILES_VIEW", // filters & sorts
+	sort: 'NAME_AZ',
 	filters: { fav: false },
 	modal_open: false, // movie player info
 	current_movie: null,
-	provider: ALL, // pagination
+	provider: 'ALL', // pagination
 	pagination: 1,
 	per_page: 5,
 };
@@ -29,26 +29,26 @@ export const FilterProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	// fetch state.movies into filter's state
-	const { movies } = useMoviesContext();
+	const { movies } = useFilmContext();
 	useEffect(() => {
-		dispatch({ type: LOAD_MOVIES, payload: movies });
+		dispatch({ type: 'LOAD_MOVIES', payload: movies });
 	}, [movies]);
 
 	// --- view ---
 	const setListView = e =>
-		dispatch({ type: SET_VIEW, payload: e.target.value });
+		dispatch({ type: 'SET_VIEW', payload: e.target.value });
 
 	// --- sort ---
 	const updateSort = e => {
-		dispatch({ type: UPDATE_SORT, payload: e.target.value });
+		dispatch({ type: 'UPDATE_SORT', payload: e.target.value });
 	};
 
 	// reset the list on every state change
 	useEffect(() => {
-		dispatch({ type: FILTER_MOVIES });
-		dispatch({ type: SORT_MOVIES });
-		dispatch({ type: PAGINATE });
-		dispatch({ type: UPDATE_PAGINATION, payload: 'reset' });
+		dispatch({ type: 'FILTER_MOVIES' });
+		dispatch({ type: 'SORT_MOVIES' });
+		dispatch({ type: 'PAGINATE' });
+		dispatch({ type: 'UPDATE_PAGINATION', payload: 'reset' });
 	}, [
 		movies,
 		state.sort,
@@ -61,25 +61,25 @@ export const FilterProvider = ({ children }) => {
 	// hadle filter
 	const updateFilters = e => {
 		const { name, checked } = e.target;
-		dispatch({ type: UPDATE_FILTERS, payload: { name, checked } });
+		dispatch({ type: 'UPDATE_FILTERS', payload: { name, checked } });
 	};
 	// handle items-per-page input
 	const updatePerPage = e => {
-		dispatch({ type: UPDATE_PER_PAGE, payload: e.target.value });
+		dispatch({ type: 'UPDATE_PER_PAGE', payload: e.target.value });
 	};
 
 	// handle provider param change
 	const updateProvider = provider => {
-		dispatch({ type: UPDATE_PROVIDER, payload: provider });
+		dispatch({ type: 'UPDATE_PROVIDER', payload: provider });
 	};
 	// handle pagination buttons
 	const updatePagination = action => {
-		dispatch({ type: UPDATE_PAGINATION, payload: action });
+		dispatch({ type: 'UPDATE_PAGINATION', payload: action });
 	};
 	// handle modal
-	const updateModal = () => dispatch({ type: SET_MODAL });
+	const updateModal = () => dispatch({ type: 'SET_MODAL' });
 	const updateCurrentMovie = movieUrl => {
-		dispatch({ type: UPDATE_CURRENT_MOVIE, payload: movieUrl });
+		dispatch({ type: 'UPDATE_CURRENT_MOVIE', payload: movieUrl });
 		updateModal();
 	};
 

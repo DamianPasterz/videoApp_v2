@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-import { FilmProvider } from './context/movies_context';
+import { FilmProvider } from './context/film_context';
 import { FilterProvider } from './context/filter_context';
 
 
